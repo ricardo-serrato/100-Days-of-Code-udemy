@@ -4,12 +4,10 @@
 # 4. double testing
 
 from ascii_art import rock, paper, scissors
-import random
-import os
-import time
+import random, os, time
+
 
 ARTWORK = [rock, paper, scissors]
-COMPUTER_MOVE = random.randint(0, 2)
 
 
 def clear_screen():
@@ -50,14 +48,20 @@ def get_winner(p1Move, p2Move):
         print("It's a Tie!")
 
 
-def play_game():
+def play_game(computer_choice):
     player_choice = get_choice()
-    get_winner(player_choice, COMPUTER_MOVE)
+    get_winner(player_choice, computer_choice)
 
 
 def play_again():
     while True:
-        answer = input('Would you want to play again? press [Y] or [N]: ').upper()[0]
+        answer = input('Would you want to play again? press [Y] or [N]: ').upper()
+        if answer == "":
+            clear_screen()
+            print("Expected a either 'Y' or 'N' but instead got none")
+            continue
+        else:
+            answer = answer[0]
 
         if answer == 'Y':
             return True
@@ -69,7 +73,15 @@ def play_again():
 
 def start_game():
     while True:
-        game_on = input('Would you like to start a game of Rock Paper & Scissors?: [Y] or [N]: ').upper()[0]
+        game_on = input('Would you like to start a game of Rock Paper & Scissors?: [Y] or [N]: ').upper()
+
+        if game_on == "":
+            clear_screen()
+            print("Expected a either 'Y' or 'N' but instead got none")
+            continue
+        else:
+            game_on = game_on[0]
+
         if game_on == 'Y':
             return True
         elif game_on == 'N':
@@ -78,16 +90,16 @@ def start_game():
             print("Invalid input")
 
 
-
-print('Welcome to My text based game of Rock, Paper, and Scissors.')
-
-game_is_on = start_game()
-while game_is_on:
-    play_game()
-    if not play_again():
-        game_is_on = False
-    clear_screen()
-print('Thank you for playing!')
+if __name__ == '__main__':
+    print('Welcome to My text based game of Rock, Paper, and Scissors.')
+    game_is_on = start_game()
+    while game_is_on:
+        computer_guess = random.randint(0, 2)
+        play_game(computer_guess)
+        if not play_again():
+            game_is_on = False
+        clear_screen()
+    print('Thank you for playing!')
 
 
 
