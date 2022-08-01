@@ -1,6 +1,7 @@
 # 1. Just entering on Y or N breaks the program
 # 2. The computer does not reroll
 # 3. testing out editing file
+# 4. double testing
 
 from ascii_art import rock, paper, scissors
 import random
